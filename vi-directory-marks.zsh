@@ -23,6 +23,9 @@ function vi-dir-marks::mark(){
 
 	local REPLY
 	[[ -n ${REPLY:=$1} ]] || read -k1
+	if (($+WIDGET)) && zle .vi-set-mark <<< $REPLY; then
+		return
+	fi
 	dir_marks[$REPLY]=${${2:a}:-$PWD}
 	# schedule cache writeout
 	if [[ $REPLY = [[:upper:]] && ! ${(M)zsh_scheduled_events:#*vi-dir-marks::sync} ]]; then
@@ -35,6 +38,11 @@ function vi-dir-marks::jump(){
 
 	local REPLY
 	[[ -n ${REPLY:=${1[1]}} ]] || read -k1
+	if [[ -v WIDGET && $KEYS = '`' ]] && zle .vi-goto-mark <<< $REPLY; then
+		return
+	elif [[ -v WIDGET && $KEYS = "'" ]] && zle .vi-goto-mark-line <<< $REPLY; then
+		return
+	fi
 	if [[ -n $dir_marks[$REPLY] ]] && cd ${dir_marks[$REPLY]#*:} &>/dev/null; then
 		for f (chpwd $chpwd_functions precmd $precmd_functions)
 			(($+functions[$f])) && $f &>/dev/null
