@@ -48,7 +48,7 @@ function vi-dir-marks::sync(){
 	local -i fd
 	if [[ ! $1 = noflock ]] && zsystem supports flock; then
 		zsystem flock -f fd $VI_DIR_MARKS__CACHE_FILE
-		($0 noflock)
+		($funcstack[-1] noflock)
 		zsystem flock -u $fd
 		return
 	fi
