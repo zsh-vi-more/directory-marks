@@ -4,6 +4,8 @@ and add implementations for
 
 # Directory Marks
 
+[![Gitter](https://badges.gitter.im/zsh-vi-more/community.svg)](https://gitter.im/zsh-vi-more/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Save directories and jump between them
 with vi-like marks.
 
