@@ -20,8 +20,8 @@ function vi-dir-marks::mark(){
 	local REPLY
 	[[ -n ${REPLY:=$1} ]] || read -k1
 	local -A dir_marks
+	source $VI_DIR_MARKS__CACHE_FILE
 	dir_marks[$REPLY]=${${2:a}:-$PWD}
-	# schedule cache writeout
 	typeset -p dir_marks >| $VI_DIR_MARKS__CACHE_FILE
 }
 
