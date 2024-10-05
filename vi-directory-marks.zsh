@@ -17,7 +17,6 @@
 
 function vi-dir-marks::mark(){
 	emulate -L zsh
-	set -x
 	local REPLY
 	[[ -n ${REPLY:=$1} ]] || read -k1
 	local -A dir_marks
@@ -34,11 +33,11 @@ function vi-dir-marks::jump(){
 
 	local REPLY
 	[[ -n ${REPLY:=${1[1]}} ]] || read -k1
-	if [[ -v WIDGET && $KEYS = '`' ]] && zle .vi-goto-mark <<< $REPLY; then
-		return
-	elif [[ -v WIDGET && $KEYS = "'" ]] && zle .vi-goto-mark-line <<< $REPLY; then
-		return
-	fi
+	# if [[ -v WIDGET && $KEYS = '`' ]] && zle .vi-goto-mark <<< $REPLY; then
+	# 	return
+	# elif [[ -v WIDGET && $KEYS = "'" ]] && zle .vi-goto-mark-line <<< $REPLY; then
+	# 	return
+	# fi
 
 	# we have to manually run chpwd/precmd functions and reset the prompt
 	if [[ -n $dir_marks[$REPLY] ]] && cd ${dir_marks[$REPLY]#*:} &>/dev/null; then
