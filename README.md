@@ -20,9 +20,6 @@ so that `:marks` works like vi(m).
 
 ## Functions added
 
-- `vi-dir-marks::sync`: Read in any missing global marks,
-write out global marks to a cache file
-(prioritizes global marks present in local session)
 - `vi-dir-marks::list`: Lists all marks.
 - `vi-dir-marks::{mark,jump}`: These are primarily widget functions,
 but they work outside of ZLE.
